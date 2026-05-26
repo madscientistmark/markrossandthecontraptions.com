@@ -32,13 +32,12 @@ h2 {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: radial-gradient(circle at 50% 30%, #2a1f1c 0%, var(--bg) 70%);
-  padding: 4rem 1.5rem;
+  background: radial-gradient(circle at 50% 40%, #2a1f1c 0%, var(--bg) 75%);
+  padding: 1.5rem 1.5rem 1rem;
   overflow: hidden;
 }
 
@@ -69,7 +68,7 @@ h2 {
 
 /* ---------- Shared section spacing ---------- */
 main > section {
-  padding: 3.5rem 1.5rem;
+  padding: 1.75rem 1.5rem;
 }
 
 main > section:not(.band-photo) {
@@ -130,7 +129,7 @@ main > section:not(.band-photo) {
 }
 
 .contact__socials-label {
-  margin: 2.5rem 0 1rem;
+  margin: 1.5rem 0 0.85rem;
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.15em;
