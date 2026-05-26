@@ -103,6 +103,35 @@ main > section:not(.band-photo) {
   flex-wrap: wrap;
 }
 
+/* ---------- Watch (video embed) ---------- */
+.watch {
+  text-align: center;
+}
+
+.watch__track {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: var(--accent-soft);
+  margin-bottom: 1.25rem;
+}
+
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* ---------- Members ---------- */
 .members {
   background: var(--bg-alt);
