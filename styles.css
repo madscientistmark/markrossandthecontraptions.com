@@ -1,0 +1,198 @@
+:root {
+  --bg: #0d0d10;
+  --bg-alt: #15151b;
+  --text: #ece9e2;
+  --muted: #a39f96;
+  --accent: #c8412f; /* warm amp-light red, picked from the band photo */
+  --accent-soft: #e0775f;
+  --maxw: 760px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  margin-bottom: 1rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at 50% 30%, #2a1f1c 0%, var(--bg) 70%);
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+}
+
+.hero__logo {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.6));
+}
+
+.hero__tagline {
+  margin-top: 1rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: clamp(0.7rem, 2.5vw, 1rem);
+  color: var(--accent-soft);
+  padding-left: 0.35em; /* balance the letter-spacing */
+}
+
+/* ---------- Band photo ---------- */
+.band-photo {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.band-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Shared section spacing ---------- */
+main > section {
+  padding: 3.5rem 1.5rem;
+}
+
+main > section:not(.band-photo) {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* ---------- Bio ---------- */
+.bio__lead {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* ---------- Members ---------- */
+.members {
+  background: var(--bg-alt);
+  border-radius: 14px;
+}
+
+.members__intro {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.members__list {
+  list-style: none;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.members__list li {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+}
+
+.members__name {
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.members__role {
+  color: var(--muted);
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact__blurb {
+  max-width: 520px;
+  margin: 0 auto 1.75rem;
+  color: var(--text);
+}
+
+.contact__socials-label {
+  margin: 2.5rem 0 1rem;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 6px;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn--primary:hover { background: var(--accent-soft); }
+
+.btn--social {
+  border: 2px solid var(--muted);
+  color: var(--text);
+}
+
+.btn--social:hover {
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid #22222a;
+}

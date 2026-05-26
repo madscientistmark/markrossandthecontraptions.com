@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: markrossandthecontraptions
+    runtime: static
+    # No build step needed — this is plain HTML/CSS.
+    buildCommand: ""
+    staticPublishPath: .
+    # Custom domain is configured in the Render dashboard, not here:
+    # Settings → Custom Domains → add markrossandthecontraptions.com
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

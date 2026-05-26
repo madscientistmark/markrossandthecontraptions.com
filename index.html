@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mark Ross &amp; The Contraptions</title>
+  <meta name="description" content="Mark Ross &amp; The Contraptions — keyboard-driven, extraordinary original music, born in Atlanta, Georgia. Mad Scientist Keyboard Revival." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mark Ross &amp; The Contraptions" />
+  <meta property="og:description" content="Keyboard-driven, extraordinary original music, born in Atlanta, Georgia." />
+  <meta property="og:image" content="assets/band.webp" />
+  <meta property="og:url" content="https://markrossandthecontraptions.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/logo.webp" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <img class="hero__logo" src="assets/logo.webp" alt="Mark Ross &amp; The Contraptions" />
+      <p class="hero__tagline">Mad Scientist Keyboard Revival</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="band-photo" aria-label="The band">
+      <img src="assets/band.webp" alt="The four members of Mark Ross &amp; The Contraptions gathered among vintage keyboards and amps." loading="lazy" />
+    </section>
+
+    <section class="bio" id="about">
+      <p class="bio__lead">
+        Keyboard-driven, extraordinary original music, born in Atlanta, Georgia.
+        Rife with odd musical proclivities, this band takes every left turn it
+        can find, but all while interweaving hooks and melodies uncommon in the
+        overall rock genre. And yes &mdash; it is rock. And pop. And funk. And
+        borders on flavors of prog metal, at its weirdest.
+      </p>
+    </section>
+
+    <section class="members" id="band">
+      <h2>The Contraptions</h2>
+      <p class="members__intro">The band consists of a wily cast of characters.</p>
+      <ul class="members__list">
+        <li>
+          <span class="members__name">Mark Alden Ross</span>
+          <span class="members__role">A wickedly funky songwriter who's bent on making music with all manner of vintage keyboards.</span>
+        </li>
+        <li>
+          <span class="members__name">Ken Green</span>
+          <span class="members__role">Adds the twang with his guitar arsenal.</span>
+        </li>
+        <li>
+          <span class="members__name">Pierce Tanner</span>
+          <span class="members__role">Holds it all together on the drums, and his background remains shrouded in mystery.</span>
+        </li>
+        <li>
+          <span class="members__name">Colin Bragg</span>
+          <span class="members__role">The incomparable Colin brings his bass prowess, on an arsenal of bottom end weaponry.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Contact the Contraptions</h2>
+      <p class="contact__blurb">
+        Book us, reach out, or let us add you to our correspondence and let you
+        know about upcoming releases and show dates.
+      </p>
+      <a class="btn btn--primary" href="mailto:markaldenross@gmail.com">Email the band</a>
+
+      <p class="contact__socials-label">And hit us on the socials, y'all</p>
+      <div class="socials">
+        <a class="btn btn--social" href="https://www.youtube.com/@MarkRossTheContraptions/videos" target="_blank" rel="noopener">YouTube</a>
+        <a class="btn btn--social" href="https://www.facebook.com/mark.ross.and.the.contraptions" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Mark Ross &amp; The Contraptions &middot; Atlanta, GA</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
