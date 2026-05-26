@@ -55,17 +55,6 @@ h2 {
   filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.6));
 }
 
-.hero__tagline {
-  margin-top: 1rem;
-  font-family: "Oswald", sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.35em;
-  font-size: clamp(0.7rem, 2.5vw, 1rem);
-  color: var(--accent-soft);
-  padding-left: 0.35em; /* balance the letter-spacing */
-}
-
 /* ---------- Band photo ---------- */
 .band-photo {
   max-width: 1024px;
