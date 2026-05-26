@@ -83,6 +83,26 @@ main > section:not(.band-photo) {
   text-align: center;
 }
 
+/* ---------- Listen ---------- */
+.listen {
+  text-align: center;
+}
+
+.listen__track {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: var(--accent-soft);
+  margin-bottom: 1.25rem;
+}
+
+.listen__links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* ---------- Members ---------- */
 .members {
   background: var(--bg-alt);
