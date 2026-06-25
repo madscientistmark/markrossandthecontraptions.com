@@ -37,6 +37,37 @@
       <img src="assets/band.webp" alt="The four members of Mark Ross &amp; The Contraptions gathered among vintage keyboards and amps." loading="lazy" />
     </section>
 
+    <section class="signup-cta" id="join">
+      <button type="button" class="btn btn--primary signup-cta__toggle" id="signup-toggle" aria-expanded="false" aria-controls="signup-form">Join the mailing list</button>
+
+      <form class="signup" id="signup-form" novalidate hidden>
+        <p class="signup__label">Show dates &amp; new releases, straight to you</p>
+        <div class="signup__field">
+          <label for="su-name">Name</label>
+          <input type="text" id="su-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-email">Email</label>
+          <input type="email" id="su-email" name="email" autocomplete="email" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-phone">Phone <span class="signup__opt">(optional)</span></label>
+          <input type="tel" id="su-phone" name="phone" autocomplete="tel" />
+        </div>
+        <div class="signup__field">
+          <label for="su-comment">Comment <span class="signup__opt">(optional)</span></label>
+          <textarea id="su-comment" name="comment" rows="3"></textarea>
+        </div>
+        <!-- Honeypot: hidden from humans; bots fill it and get silently dropped. -->
+        <div class="signup__hp" aria-hidden="true">
+          <label for="su-botcheck">Website</label>
+          <input type="checkbox" id="su-botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--primary" id="su-submit">Sign me up</button>
+        <p class="signup__status" id="su-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
     <section class="bio" id="about">
       <p class="bio__lead">
         Keyboard-driven, extraordinary original music, born in Atlanta, Georgia.
@@ -112,6 +143,90 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      // Web3Forms relays each submission to the email tied to this access key.
+      // The key is meant to be public (it only routes mail to the owner's inbox).
+      var WEB3FORMS_KEY = '0cde7acf-f513-406b-9614-034b3b0583d2';
+      var ENDPOINT = 'https://api.web3forms.com/submit';
+      var form = document.getElementById('signup-form');
+      var statusEl = document.getElementById('su-status');
+      var submitBtn = document.getElementById('su-submit');
+      var toggle = document.getElementById('signup-toggle');
+      if (!form) return;
+
+      // Expand/collapse the form when the call-to-action button is clicked.
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var willOpen = form.hidden;
+          form.hidden = !willOpen;
+          toggle.setAttribute('aria-expanded', String(willOpen));
+          if (willOpen) {
+            form.name.focus();
+          }
+        });
+      }
+
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg;
+        statusEl.className = 'signup__status' + (kind ? ' signup__status--' + kind : '');
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+
+        // Honeypot: a real user never checks this hidden box; a bot will.
+        if (form.botcheck.checked) {
+          form.reset();
+          setStatus('Thanks for signing up!', 'ok');
+          return;
+        }
+
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        if (!name) { setStatus('Please enter your name.', 'err'); form.name.focus(); return; }
+        if (!EMAIL_RE.test(email)) { setStatus('Please enter a valid email.', 'err'); form.email.focus(); return; }
+
+        if (WEB3FORMS_KEY === 'PENDING_ACCESS_KEY') {
+          setStatus('Signup isn’t live yet — email us at markaldenross@gmail.com', 'err');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        setStatus('Sending…', '');
+
+        var body = new URLSearchParams({
+          access_key: WEB3FORMS_KEY,
+          subject: 'New mailing-list signup — Mark Ross & The Contraptions',
+          from_name: 'Contraptions Mailing List',
+          name: name,
+          email: email,
+          phone: form.phone.value.trim(),
+          comment: form.comment.value.trim()
+        });
+
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: body
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && data.success) {
+              form.reset();
+              setStatus('Thanks for signing up!', 'ok');
+            } else {
+              throw new Error(data && data.message ? data.message : 'unknown');
+            }
+          })
+          .catch(function () {
+            setStatus('Something went wrong — email us at markaldenross@gmail.com', 'err');
+          })
+          .finally(function () { submitBtn.disabled = false; });
+      });
+    })();
   </script>
 </body>
 </html>
