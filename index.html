@@ -37,6 +37,37 @@
       <img src="assets/band.webp" alt="The four members of Mark Ross &amp; The Contraptions gathered among vintage keyboards and amps." loading="lazy" />
     </section>
 
+    <section class="signup-cta" id="join">
+      <button type="button" class="btn btn--primary signup-cta__toggle" id="signup-toggle" aria-expanded="false" aria-controls="signup-form">Join the mailing list</button>
+
+      <form class="signup" id="signup-form" novalidate hidden>
+        <p class="signup__label">Show dates &amp; new releases, straight to you</p>
+        <div class="signup__field">
+          <label for="su-name">Name</label>
+          <input type="text" id="su-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-email">Email</label>
+          <input type="email" id="su-email" name="email" autocomplete="email" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-phone">Phone <span class="signup__opt">(optional)</span></label>
+          <input type="tel" id="su-phone" name="phone" autocomplete="tel" />
+        </div>
+        <div class="signup__field">
+          <label for="su-comment">Comment <span class="signup__opt">(optional)</span></label>
+          <textarea id="su-comment" name="comment" rows="3"></textarea>
+        </div>
+        <!-- Honeypot: hidden from humans; bots fill it and get silently dropped. -->
+        <div class="signup__hp" aria-hidden="true">
+          <label for="su-botcheck">Website</label>
+          <input type="checkbox" id="su-botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--primary" id="su-submit">Sign me up</button>
+        <p class="signup__status" id="su-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
     <section class="bio" id="about">
       <p class="bio__lead">
         Keyboard-driven, extraordinary original music, born in Atlanta, Georgia.
@@ -98,33 +129,6 @@
       </p>
       <a class="btn btn--primary" href="mailto:markaldenross@gmail.com">Email the band</a>
 
-      <form class="signup" id="signup-form" novalidate>
-        <p class="signup__label">Or join our mailing list</p>
-        <div class="signup__field">
-          <label for="su-name">Name</label>
-          <input type="text" id="su-name" name="name" autocomplete="name" required />
-        </div>
-        <div class="signup__field">
-          <label for="su-email">Email</label>
-          <input type="email" id="su-email" name="email" autocomplete="email" required />
-        </div>
-        <div class="signup__field">
-          <label for="su-phone">Phone <span class="signup__opt">(optional)</span></label>
-          <input type="tel" id="su-phone" name="phone" autocomplete="tel" />
-        </div>
-        <div class="signup__field">
-          <label for="su-comment">Comment <span class="signup__opt">(optional)</span></label>
-          <textarea id="su-comment" name="comment" rows="3"></textarea>
-        </div>
-        <!-- Honeypot: hidden from humans; bots fill it and get silently dropped. -->
-        <div class="signup__hp" aria-hidden="true">
-          <label for="su-botcheck">Website</label>
-          <input type="checkbox" id="su-botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
-        </div>
-        <button type="submit" class="btn btn--primary" id="su-submit">Sign me up</button>
-        <p class="signup__status" id="su-status" role="status" aria-live="polite"></p>
-      </form>
-
       <p class="contact__socials-label">And hit us on the socials, y'all</p>
       <div class="socials">
         <a class="btn btn--social" href="https://www.youtube.com/@MarkRossTheContraptions/videos" target="_blank" rel="noopener">YouTube</a>
@@ -143,12 +147,25 @@
     (function () {
       // Web3Forms relays each submission to the email tied to this access key.
       // The key is meant to be public (it only routes mail to the owner's inbox).
-      var WEB3FORMS_KEY = 'PENDING_ACCESS_KEY';
+      var WEB3FORMS_KEY = '0cde7acf-f513-406b-9614-034b3b0583d2';
       var ENDPOINT = 'https://api.web3forms.com/submit';
       var form = document.getElementById('signup-form');
       var statusEl = document.getElementById('su-status');
       var submitBtn = document.getElementById('su-submit');
+      var toggle = document.getElementById('signup-toggle');
       if (!form) return;
+
+      // Expand/collapse the form when the call-to-action button is clicked.
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var willOpen = form.hidden;
+          form.hidden = !willOpen;
+          toggle.setAttribute('aria-expanded', String(willOpen));
+          if (willOpen) {
+            form.name.focus();
+          }
+        });
+      }
 
       var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -160,8 +177,8 @@
       form.addEventListener('submit', function (ev) {
         ev.preventDefault();
 
-        // Honeypot: silently pretend success if filled (bot).
-        if (form.botcheck.value) {
+        // Honeypot: a real user never checks this hidden box; a bot will.
+        if (form.botcheck.checked) {
           form.reset();
           setStatus('Thanks for signing up!', 'ok');
           return;

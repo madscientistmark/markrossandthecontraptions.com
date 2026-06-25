@@ -239,12 +239,24 @@ main > section.watch {
   border-top: 1px solid #22222a;
 }
 
+/* ---------- Signup call-to-action ---------- */
+.signup-cta {
+  text-align: center;
+}
+
+.signup-cta__toggle {
+  cursor: pointer;
+  border: none;
+}
+
 /* ---------- Signup form ---------- */
 .signup {
   max-width: 460px;
-  margin: 2rem auto 0;
+  margin: 1.5rem auto 0;
   text-align: left;
 }
+
+.signup[hidden] { display: none; }
 
 .signup__label {
   font-family: "Oswald", sans-serif;
