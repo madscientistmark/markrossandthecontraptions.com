@@ -98,6 +98,33 @@
       </p>
       <a class="btn btn--primary" href="mailto:markaldenross@gmail.com">Email the band</a>
 
+      <form class="signup" id="signup-form" novalidate>
+        <p class="signup__label">Or join our mailing list</p>
+        <div class="signup__field">
+          <label for="su-name">Name</label>
+          <input type="text" id="su-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-email">Email</label>
+          <input type="email" id="su-email" name="email" autocomplete="email" required />
+        </div>
+        <div class="signup__field">
+          <label for="su-phone">Phone <span class="signup__opt">(optional)</span></label>
+          <input type="tel" id="su-phone" name="phone" autocomplete="tel" />
+        </div>
+        <div class="signup__field">
+          <label for="su-comment">Comment <span class="signup__opt">(optional)</span></label>
+          <textarea id="su-comment" name="comment" rows="3"></textarea>
+        </div>
+        <!-- Honeypot: hidden from humans; bots fill it and get silently dropped. -->
+        <div class="signup__hp" aria-hidden="true">
+          <label for="su-website">Website</label>
+          <input type="text" id="su-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--primary" id="su-submit">Sign me up</button>
+        <p class="signup__status" id="su-status" role="status" aria-live="polite"></p>
+      </form>
+
       <p class="contact__socials-label">And hit us on the socials, y'all</p>
       <div class="socials">
         <a class="btn btn--social" href="https://www.youtube.com/@MarkRossTheContraptions/videos" target="_blank" rel="noopener">YouTube</a>
@@ -112,6 +139,67 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      var SIGNUP_ENDPOINT = 'PENDING_TASK_3';
+      var form = document.getElementById('signup-form');
+      var statusEl = document.getElementById('su-status');
+      var submitBtn = document.getElementById('su-submit');
+      if (!form) return;
+
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg;
+        statusEl.className = 'signup__status' + (kind ? ' signup__status--' + kind : '');
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+
+        // Honeypot: silently pretend success if filled (bot).
+        if (form.website.value) {
+          form.reset();
+          setStatus('Thanks for signing up!', 'ok');
+          return;
+        }
+
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        if (!name) { setStatus('Please enter your name.', 'err'); form.name.focus(); return; }
+        if (!EMAIL_RE.test(email)) { setStatus('Please enter a valid email.', 'err'); form.email.focus(); return; }
+
+        if (SIGNUP_ENDPOINT === 'PENDING_TASK_3') {
+          setStatus('Signup isn’t live yet — email us at markaldenross@gmail.com', 'err');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        setStatus('Sending…', '');
+
+        var body = new URLSearchParams({
+          name: name,
+          email: email,
+          phone: form.phone.value.trim(),
+          comment: form.comment.value.trim()
+        });
+
+        fetch(SIGNUP_ENDPOINT, { method: 'POST', body: body })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && data.result === 'success') {
+              form.reset();
+              setStatus('Thanks for signing up!', 'ok');
+            } else {
+              throw new Error(data && data.message ? data.message : 'unknown');
+            }
+          })
+          .catch(function () {
+            setStatus('Something went wrong — email us at markaldenross@gmail.com', 'err');
+          })
+          .finally(function () { submitBtn.disabled = false; });
+      });
+    })();
   </script>
 </body>
 </html>
